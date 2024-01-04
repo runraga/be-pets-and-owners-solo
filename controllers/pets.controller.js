@@ -12,16 +12,24 @@ function c_getPetsX(req, res) {
   let sort = "id";
   let order = "asc";
 
+  const petsData = getPets();
+
   if (req.query.sort_by) {
     sort = req.query.sort_by;
   }
   if (req.query.order) {
-    sort = req.query.order;
+    order = req.query.order;
   }
-  const petsData = getPets();
   petsData.sort((a, b) => {
-    return a[sort] - b[sort];
+    const [c, d] = order === "asc" ? [a[sort], b[sort]] : [b[sort], a[sort]];
+    if (c < d) {
+      return -1;
+    } else if (c > d) {
+      return 1;
+    }
+    return 0;
   });
+
   res.send({ pets: petsData });
 }
 

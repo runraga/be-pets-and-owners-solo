@@ -9,6 +9,7 @@ exports.getPets = (ownerId) => {
       petsData.push(petData);
     }
   }
+  
   return petsData;
 };
 exports.getPet = (petId) => {
